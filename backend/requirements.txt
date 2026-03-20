@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn==0.34.0
+python-multipart==0.0.20
+boto3==1.36.2
+chromadb-client==0.5.23
+posthog==3.7.4
+pymupdf==1.25.3
+sentence-transformers==3.4.1
+openai==1.59.7
+pydantic-settings==2.7.1

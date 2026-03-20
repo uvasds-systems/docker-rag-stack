@@ -1,0 +1,34 @@
+services:
+  chromadb:
+    image: chromadb/chroma:0.5.23
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - MODEL_RUNNER_URL=${MODEL_RUNNER_URL:-http://model-runner.docker.internal/engines/llama.cpp/v1}
+      - MODEL_NAME=${MODEL_NAME:-ai/mistral-small}
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - ANONYMIZED_TELEMETRY=false
+    depends_on:
+      - chromadb
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  chroma_data:
