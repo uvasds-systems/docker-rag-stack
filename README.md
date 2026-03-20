@@ -8,7 +8,7 @@
 2. Deployment assumes you have already created an S3 bucket for RAG content, as well as a AWS security key and secret key. If running locally, copy `.env.example` to `.env` and provide credentials. If running in EC2 using an IAM role with permission to the bucket, comment out those lines in `.env`.
 3. Pull the relevant model manually from the CLI:
     ```
-    docker model pull
+    docker model pull ai/qwen2.5:latest
     ```
 4. Run the complete stack using `docker compose`. This includes a compiled ReactJS front-end and a Python-based FastAPI back-end.
     ```
