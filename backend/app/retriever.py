@@ -34,7 +34,7 @@ def query_llm(question: str, contexts: list[dict]) -> str:
 
     user_prompt = f"Context:\n{context_text}\n\nQuestion: {question}"
 
-    client = OpenAI(base_url=settings.model_runner_url, api_key="not-needed")
+    client = OpenAI(base_url=settings.model_runner_url, api_key=settings.uvarc_llm_token)
     response = client.chat.completions.create(
         model=settings.model_name,
         messages=[
@@ -61,7 +61,7 @@ def query_llm_stream(question: str, contexts: list[dict]):
 
     user_prompt = f"Context:\n{context_text}\n\nQuestion: {question}"
 
-    client = OpenAI(base_url=settings.model_runner_url, api_key="not-needed")
+    client = OpenAI(base_url=settings.model_runner_url, api_key=settings.uvarc_llm_token)
     stream = client.chat.completions.create(
         model=settings.model_name,
         messages=[

@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-backend
+  namespace: uvasds-services
+  labels:
+    app: rag-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-backend
+  template:
+    metadata:
+      labels:
+        app: rag-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/uvasds-systems/rag-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: UVARC_LLM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: uvarc-llm-token
+                  key: UVARC_LLM_TOKEN
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-nem2p-440848399208
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-nem2p-440848399208
+                  key: AWS_SECRET_ACCESS_KEY
+          envFrom:
+            - configMapRef:
+                name: rag-config
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-backend
+  namespace: uvasds-services
+spec:
+  selector:
+    app: rag-backend
+  ports:
+    - port: 8080
+      targetPort: 8080

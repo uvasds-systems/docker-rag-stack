@@ -7,8 +7,9 @@ class Settings(BaseSettings):
     aws_region: str = "us-east-1"
     s3_bucket_name: str = ""
 
-    model_runner_url: str = "http://model-runner.docker.internal/engines/llama.cpp/v1"
-    model_name: str = "docker.io/ai/qwen2.5:latest"
+    model_runner_url: str = "https://open-webui.rc.virginia.edu/api/"
+    model_name: str = "Kimi K2.5"
+    uvarc_llm_token: str = ""
 
     chroma_host: str = "chromadb"
     chroma_port: int = 8000

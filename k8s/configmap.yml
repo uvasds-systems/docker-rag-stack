@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-config
+  namespace: uvasds-services
+data:
+  S3_BUCKET_NAME: ""
+  AWS_REGION: "us-east-1"
+  MODEL_RUNNER_URL: "https://open-webui.rc.virginia.edu/api/"
+  MODEL_NAME: "Kimi K2.5"
+  CHROMA_HOST: "chromadb"
+  CHROMA_PORT: "8000"
