@@ -4,7 +4,7 @@ metadata:
   name: rag-config
   namespace: uvasds-services
 data:
-  S3_BUCKET_NAME: ""
+  S3_BUCKET_NAME: "ds5220-rag"
   AWS_REGION: "us-east-1"
   MODEL_RUNNER_URL: "https://open-webui.rc.virginia.edu/api/"
   MODEL_NAME: "Kimi K2.5"
